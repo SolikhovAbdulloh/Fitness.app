@@ -6,30 +6,22 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { MainLayout } from "./layouts/MainLayout";
-import { SignIn } from "./pages/SignIn";
-import { SignUp } from "./pages/SignUp";
-import { Dashboard } from "./pages/Dashboard";
-import { Profile } from "./pages/Profile";
-import { Learn } from "./pages/Learn";
-import { LearnExercise } from "./pages/LearnExercise";
+
 import { RoutineSession } from "./pages/RoutineSession";
 import { NotFound } from "./pages/NotFound";
 import { ServerError } from "./pages/ServerError";
-import { useAuth } from "./utils/AuthProvider";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import theme from "./theme";
-import { TrainingProgram } from "./pages/TrainingProgram";
 import { Landing } from "./pages/Landing";
 import { PremadeRoutine } from "./pages/PremadeRoutine";
 import CreateProgram from "./pages/CreateProgram";
-import AuthenticationOptions from "./pages/AuthenticationOptions";
 import { BrowserProvider } from "./BrowserProvider";
+import { useUsers } from "./hook/useUsers";
 function App() {
-  const { user, loading } = useAuth();
+  const { data, isLoading, isFetching } = useUsers();
 
-  if (loading) {
+  if (isLoading || isFetching) {
     return null;
   }
 
@@ -38,18 +30,18 @@ function App() {
       <>
         {/* No authentication required */}
         <Route index element={<Landing title="BodyBoddy" />} />
-        <Route
+        {/* <Route
           path="/enter"
           element={<AuthenticationOptions title="Welcome to BodyBuddy" />}
-        />
-        <Route path="/signin" element={<SignIn title="Sign In" />} />
-        <Route path="/signup" element={<SignUp title="Sign Up" />} />
+        /> */}
+        {/* <Route path="/signin" element={<SignIn title="Sign In" />} />
+        <Route path="/signup" element={<SignUp title="Sign Up" />} /> */}
 
         {/* Authentication required (MainLayout is applied) */}
         <Route
           path="/"
           element={
-            user ? <PremadeRoutine /> : loading ? null : <Navigate to="/" />
+            true ? <PremadeRoutine /> : isLoading ? null : <Navigate to="/" />
           }
         >
           {/* <Route path="/dashboard" element={<Dashboard title="Dashboard" />} /> */}
@@ -70,20 +62,20 @@ function App() {
         </Route>
         <Route
           path="/create-program"
-          element={<CreateProgram title="Create Custom Program" />}
+          element={
+            <CreateProgram
+              AssessmentDone={data[0].isAssessmentDone}
+              isEntered={data[0].isEntered}
+              title="Create Custom Program"
+            />
+          }
         />
         <Route path="/error" element={<ServerError title="Server Error" />} />
         <Route path="*" element={<NotFound title="Not found" />} />
         {/* Authentication required (MainLayout is NOT applied) */}
         <Route
           path="/routine"
-          element={
-            user ? (
-              <RoutineSession title="RoutineSession" />
-            ) : loading ? null : (
-              <Navigate to="/signin" />
-            )
-          }
+          element={<RoutineSession title="RoutineSession" />}
         />
       </>
     )

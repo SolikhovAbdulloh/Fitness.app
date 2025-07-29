@@ -201,6 +201,8 @@ export const RoutineSession = ({ title = "Routine Session" }) => {
           },
           runningMode: runningMode.current,
           numPoses: 2,
+          minPoseDetectionConfidence: 0.9,
+          minTrackingConfidence: 0.9,
         });
         poseLandmarkerRef.current = poseLandmarker;
       } catch (error) {
@@ -662,6 +664,7 @@ export const RoutineSession = ({ title = "Routine Session" }) => {
     if (selectedExercise) {
       const originalId = selectedExercise.exercise_id;
       const mappedId = EXERCISE_ID_MAPPING[originalId];
+     
 
       if (!mappedId) {
         console.error("ID mapping topilmadi:", originalId);
@@ -669,15 +672,17 @@ export const RoutineSession = ({ title = "Routine Session" }) => {
       }
 
       const CounterClass = exerciseCounterLoader[mappedId];
+     
 
       if (CounterClass) {
-        return new CounterClass();
+        const counter = new CounterClass();
+        console.log("Counter obyekt:", counter);
+        return counter;
       } else {
         console.error("Exercise counter topilmadi:", selectedExercise.name);
         return null;
       }
     }
-
     return null;
   };
   // Perform posture detection on webcam feed and count reps
@@ -1007,10 +1012,6 @@ export const RoutineSession = ({ title = "Routine Session" }) => {
       setLastPostureAlertUpdate(Date.now());
     }, 3000);
   };
-
-  // ---------------------------------------------------------
-  //                      JSX Return
-  // ---------------------------------------------------------
 
   return (
     <>

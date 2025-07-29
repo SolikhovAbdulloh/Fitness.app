@@ -10,7 +10,7 @@ export class BaseCounter {
     this.alertThreshold = 50;
 
     this.previousLandmarks = null; // Store the previous frame's landmarks
-    this.movementThreshold = 0.1; // Threshold for detecting large movements
+    this.movementThreshold = 0.3; // Threshold for detecting large movements
   }
 
   processPose(landmarks) {

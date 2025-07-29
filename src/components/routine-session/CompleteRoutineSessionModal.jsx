@@ -51,7 +51,7 @@ export const CompleteRoutineSessionModal = ({
 
   const handleComplete = () => {
     onComplete();
-    navigate("/training");
+    navigate("/");
   };
 
   return (

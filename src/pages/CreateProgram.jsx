@@ -6,7 +6,6 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import logo from "/assets/bodybuddy_logo_color.svg";
-import bgImage from "/assets/create-program.png";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -35,16 +34,17 @@ import {
   getAllGoals,
   getAllIntensities,
 } from "../controllers/LocalTablesController.js";
-import { useAuth } from "../utils/AuthProvider.jsx";
 import CheckIcon from "@mui/icons-material/Check"; // TODO: change to svg icon from design file
 import dayjs from "dayjs";
 import theme from "../theme.js";
+import { getUsers } from "../controller/services/userService.js";
+import { getAssessments } from "../controller/services/assessmentService.js";
+import { useAssessments } from "../hook/useAssessments.js";
 
-const CreateProgram = () => {
-  const { user } = useAuth();
+const CreateProgram = (AssessmentDone, isEntered) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [gender, setGender] = useState("other");
+  const [gender, setGender] = useState("M");
   const [birthday, setBirthday] = useState(null);
   const [weight, setWeight] = useState(null);
   const [weightUnit, setWeightUnit] = useState("lbs");
@@ -54,6 +54,7 @@ const CreateProgram = () => {
   const [schedule, setSchedule] = useState(["Monday"]);
   const [primaryGoalsOptions, setPrimaryGoalsOptions] = useState([]);
   const [intensityOptions, setIntensityOptions] = useState([]);
+  const { data } = useAssessments();
 
   useEffect(() => {
     async function getData() {
@@ -70,6 +71,9 @@ const CreateProgram = () => {
     getData();
   }, []);
 
+  // if (AssessmentDone) {
+  //   navigate("/traininglist");
+  // }
   const toggleOptions = (array, value) => {
     let index = array.findIndex((element) => element == value);
     if (index == -1) {
@@ -134,12 +138,6 @@ const CreateProgram = () => {
               control={<Radio />}
               label="Male"
               onChange={() => setGender("M")}
-            />
-            <FormControlLabel
-              value="other"
-              control={<Radio />}
-              label="Prefer not to say"
-              onChange={() => setGender("other")}
             />
           </RadioGroup>
           <Typography
@@ -503,11 +501,6 @@ const CreateProgram = () => {
       weight: weight,
       weight_unit: weightUnit,
     };
-    if (user) {
-      navigate("/dashboard", { state: formResponse });
-    } else {
-      navigate("/signup", { state: { userResponses: formResponse } });
-    }
   }
   const handleClickClose = () => {
     navigate("/enter");
@@ -520,8 +513,7 @@ const CreateProgram = () => {
         alignItems={"center"}
         rowGap={5}
         sx={{
-          backgroundColor: "lightgray",
-          backgroundImage: `url(${bgImage})`,
+          background: "linear-gradient(to right, #57a5e4, #e5f1fb)",
           backgroundPosition: "top right",
           backgroundSize: "cover",
           minHeight: "100vh",

@@ -80,7 +80,7 @@ const mockRoutines = [
         duration: 90,
         rest_time: 60,
         demo_url:
-          "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/08/plankrollingsideplank-1472131261.gif",
+          "https://i.pinimg.com/originals/ef/c2/63/efc2639d761621ea2e9646a8096958e3.gif",
         types: [{ id: 1, name: "Strength" }],
         muscleGroups: [{ id: 5, name: "Back" }],
       },

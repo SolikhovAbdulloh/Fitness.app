@@ -10,17 +10,15 @@ import { RoutineExercisesList } from "../components/RoutineExercisesList";
 import { Box, Button, Typography, Paper, Chip } from "@mui/material";
 import { LoadingBackdrop } from "../components/LoadingBackdrop";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StartRoutineSessionModal } from "../components/StartRoutineSessionModal";
-import pb, { getUsers } from "../api/pocketbaseClient.js";
 
 export const PremadeRoutine = (props) => {
   const { routine_id } = useParams();
   const [routine, setRoutine] = useState({});
   const [loading, setLoading] = useState(true);
   const [openSessionModal, setOpenSessionModal] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
+  // const navigate = useNavigate();
   useEffect(() => {
     setPageTitle(props.title);
     const loadData = async () => {
@@ -32,10 +30,10 @@ export const PremadeRoutine = (props) => {
         setRoutine(routineData);
         setPageTitle(routine.name);
       } catch (e) {
-        navigate("/error", {
-          errorDetails:
-            "There was an error while loading the routines' information... try again later.",
-        });
+        // navigate("/error", {
+        //   errorDetails:
+        //     "There was an error while loading the routines' information... try again later.",
+        // });
       } finally {
         setLoading(false);
       }
@@ -48,18 +46,6 @@ export const PremadeRoutine = (props) => {
   const handleClose = () => {
     setOpenSessionModal(false);
   };
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const userList = await getUsers(); // getUsers chaqirilmoqda
-        setUsers(userList);
-      } catch (err) {
-        setError("Foydalanuvchilarni olishda xato yuz berdi");
-      }
-    }
-    fetchUsers();
-  }, []);
-  console.log("User",users);
 
   return (
     <>

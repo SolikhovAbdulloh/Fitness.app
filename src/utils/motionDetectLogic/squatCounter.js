@@ -8,6 +8,7 @@ export class SquatCounter extends BaseCounter {
     this.shoulderHipKneeAngle = null;
     this.hipKneeAnkleAngle = null;
     this.kneeAnkleAngle = null;
+    this.movementThreshold = 0.2;
   }
 
   static MET = 5.0; // Metabolic equivalent of task (MET) for squats

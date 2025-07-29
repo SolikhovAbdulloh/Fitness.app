@@ -25,7 +25,7 @@ export const mockExercises = [
     description:
       "A lower body exercise to strengthen quads, hamstrings, and glutes.",
     demo_url:
-      "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/plank-1457045584.gif?crop=1xw:1xh;center,top&resize=1200:*",
+      "https://i.pinimg.com/originals/ef/c2/63/efc2639d761621ea2e9646a8096958e3.gif",
     video_tutorial_url:
       "https://www.youtube.com/embed/-hSma-BRzoo?si=sEMHx2ttEY3HWoUH",
     execution_steps: [
@@ -47,7 +47,7 @@ export const mockExercises = [
     description:
       "A lower body exercise to strengthen quads, hamstrings, and glutes.",
     demo_url:
-      "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/08/plankrollingsideplank-1472131261.gif",
+      "https://i.pinimg.com/originals/ef/c2/63/efc2639d761621ea2e9646a8096958e3.gif",
     video_tutorial_url:
       "https://www.youtube.com/embed/adDGcsdu8WY?si=4QeJdl8VLg430P7-",
     execution_steps: [
