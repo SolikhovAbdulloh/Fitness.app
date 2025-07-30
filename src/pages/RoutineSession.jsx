@@ -798,54 +798,54 @@ export const RoutineSession = ({ title = "Routine Session" }) => {
   }, [routine, selectedExerciseIndex, successSetCount]);
 
   // Update program routine completion status
-  const updateRoutineCompletionStatus = async () => {
-    try {
-      if (idType !== "routine") return;
-      const response = await axiosClient.put(`/programs/routines`, {
-        program_id: programId,
-        routine_id: id,
-        scheduled_date: format(new Date(), "yyyy-MM-dd"),
-        completed: true,
-      });
-      if (Number(response.status) !== 200 && Number(response.status) !== 204) {
-        throw new Error("Failed to update Program_Routine");
-      }
-    } catch (error) {
-      console.error("Failed to update Program_Routine:", error);
-    }
-  };
+  // const updateRoutineCompletionStatus = async () => {
+  //   try {
+  //     if (idType !== "routine") return;
+  //     const response = await axiosClient.put(`/programs/routines`, {
+  //       program_id: programId,
+  //       routine_id: id,
+  //       scheduled_date: format(new Date(), "yyyy-MM-dd"),
+  //       completed: true,
+  //     });
+  //     if (Number(response.status) !== 200 && Number(response.status) !== 204) {
+  //       throw new Error("Failed to update Program_Routine");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to update Program_Routine:", error);
+  //   }
+  // };
 
   // Update program completion status
-  const updateProgramCompletionStatus = async () => {
-    try {
-      if (idType !== "routine" || programId === null) return;
+  // const updateProgramCompletionStatus = async () => {
+  //   try {
+  //     if (idType !== "routine" || programId === null) return;
 
-      // Fetch all routines in the program
-      const fetchResponse = await axiosClient.get(
-        `/routines/program/${programId}`
-      );
-      if (Number(fetchResponse.status) !== 200) {
-        throw new Error("Failed to fetch Program");
-      }
+  //     // Fetch all routines in the program
+  //     const fetchResponse = await axiosClient.get(
+  //       `/routines/program/${programId}`
+  //     );
+  //     if (Number(fetchResponse.status) !== 200) {
+  //       throw new Error("Failed to fetch Program");
+  //     }
 
-      // Check if all routines in the program are completed
-      for (const routine of fetchResponse.data.data) {
-        if (!routine.completed) {
-          return;
-        }
-      }
+  //     // Check if all routines in the program are completed
+  //     for (const routine of fetchResponse.data.data) {
+  //       if (!routine.completed) {
+  //         return;
+  //       }
+  //     }
 
-      // Update program completion status to "completed(true)"
-      const response = await axiosClient.put(`/programs/${programId}`, {
-        completed: true,
-      });
-      if (Number(response.status) !== 200 && Number(response.status) !== 204) {
-        throw new Error("Failed to update Program");
-      }
-    } catch (error) {
-      console.error("Failed to update Program:", error);
-    }
-  };
+  //     // Update program completion status to "completed(true)"
+  //     const response = await axiosClient.put(`/programs/${programId}`, {
+  //       completed: true,
+  //     });
+  //     if (Number(response.status) !== 200 && Number(response.status) !== 204) {
+  //       throw new Error("Failed to update Program");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to update Program:", error);
+  //   }
+  // };
 
   // Update user activity log/history
   const updateUserActivity = async () => {
